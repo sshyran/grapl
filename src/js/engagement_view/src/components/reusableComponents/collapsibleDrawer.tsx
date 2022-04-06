@@ -23,7 +23,7 @@ import ExtensionIcon from "@mui/icons-material/Extension";
 import { useStyles } from "../styles/analyzersAndGeneratorsStyles";
 import "../../index.css";
 import Img from "../../assets/grapl_logo.svg";
-import Icon from "@material-ui/core/Icon";
+import Icon from "@mui/material/Icon";
 
 const drawerWidth = 300;
 

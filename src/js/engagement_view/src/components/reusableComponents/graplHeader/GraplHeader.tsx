@@ -1,16 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
 
 import { graplHeaderStyles } from "./styles";
 import { GraplHeaderProps } from "types/GraplHeaderTypes";
 
 import { LogoIcon } from "./LogoIcon";
 
-const useStyles = graplHeaderStyles;
+const useStyles: any = graplHeaderStyles;
 
 const GraplHeader = ({ displayBtn }: GraplHeaderProps) => {
     const classes = useStyles();

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 
-import Button from "@material-ui/core/Button";
-import KeyboardArrowDownOutlinedIcon from "@material-ui/icons/KeyboardArrowDownOutlined";
-import KeyboardArrowUpOutlinedIcon from "@material-ui/icons/KeyboardArrowUpOutlined";
+import Button from "@mui/material/Button";
+import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
+import KeyboardArrowUpOutlinedIcon from "@mui/icons-material/KeyboardArrowUpOutlined";
 
-import Divider from "@material-ui/core/Divider";
-import Backdrop from "@material-ui/core/Backdrop";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import Divider from "@mui/material/Divider";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 
 import { lensTable } from "./lensTable/lensTable";
 import { getLenses } from "services/graphQLRequests/getLenses";
@@ -49,7 +49,7 @@ export function ToggleLensTable({ setLens }: ToggleLensTableProps) {
     };
 
     useEffect(() => {
-        const interval = setInterval(() => {
+        // const interval = setInterval(() => {
             getLenses(toggleTableState.first, toggleTableState.offset).then(
                 (response) => {
                     if (
@@ -70,9 +70,9 @@ export function ToggleLensTable({ setLens }: ToggleLensTableProps) {
                     }
                 }
             );
-        }, 5000);
-        return () => clearInterval(interval);
-    });
+        // }, 5000);
+        // return () => clearInterval(interval);
+    }, [toggleTableState]);
 
     return (
         <>

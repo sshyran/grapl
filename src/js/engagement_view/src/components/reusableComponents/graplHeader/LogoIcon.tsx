@@ -1,9 +1,9 @@
-import { SvgIcon } from "@material-ui/core";
+import { SvgIcon } from "@mui/material";
 import { ReactComponent as Logo } from "../../../assets/grapl_logo.svg";
 
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import { createStyles, makeStyles, Theme } from "@mui/material/styles";
 
-export const LogoIconStyle = makeStyles((theme: Theme) =>
+export const LogoIconStyle: any = makeStyles((theme: Theme) =>
     createStyles({
         logoIcon: {
             marginRight: "0.5em",
@@ -17,7 +17,7 @@ interface LogoIconProps {
 }
 
 export function LogoIcon(props: LogoIconProps) {
-    const classes = LogoIconStyle();
+    const classes = LogoIconStyle;
     return (
         <SvgIcon
             component={Logo}

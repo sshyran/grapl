@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
-import Button from "@material-ui/core/Button";
-import TableCell from "@material-ui/core/TableCell";
-import TableRow from "@material-ui/core/TableRow";
+import Button from "@mui/material/Button";
+import TableCell from "@mui/material/TableCell";
+import TableRow from "@mui/material/TableRow";
 
 import { useStyles } from "./lensTableStyles";
 

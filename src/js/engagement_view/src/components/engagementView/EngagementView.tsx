@@ -1,15 +1,14 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
 import clsx from "clsx";
 
-import Drawer from "@material-ui/core/Drawer";
-import Divider from "@material-ui/core/Divider";
-import IconButton from "@material-ui/core/IconButton";
-import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft";
-import Button from "@material-ui/core/Button";
+import Drawer from "@mui/material/Drawer";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
+import Button from "@mui/material/Button";
 import ManageSearchIcon from "@mui/icons-material/ManageSearch";
 
-import { VizNode, LensName } from "types/CustomTypes";
+import { VizNode } from "types/CustomTypes";
 
 import GraphDisplay from "../graphDisplay/GraphDisplay";
 import LensAndNodeTableContainer from "./sidebar/LensAndNodeTableContainer";

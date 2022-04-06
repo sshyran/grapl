@@ -1,6 +1,4 @@
-import React, { SyntheticEvent } from "react";
-import { styled, useTheme } from "@mui/material/styles";
-
+import React from "react";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
@@ -202,7 +200,6 @@ export const AnalyzersListTable = () => {
 };
 
 const Analyzers = () => {
-    const theme = useTheme();
     const classes = useStyles();
 
     return (

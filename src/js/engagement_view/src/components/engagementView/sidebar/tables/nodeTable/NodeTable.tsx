@@ -1,10 +1,10 @@
 import React from "react";
 
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableRow from "@material-ui/core/TableRow";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableRow from "@mui/material/TableRow";
 
 import { mapEdgeProps } from "../../../../graphDisplay/graphLayout/graphTraverse";
 import { mapNodeProps } from "../../../../graphDisplay/graphLayout/mapNodeProps";
@@ -14,7 +14,7 @@ import { OtherNodeProperties, VizNode } from "types/CustomTypes";
 import { nodeTableHeader } from "./nodeTableHeader";
 import { nodeTableStyles } from "./nodeTableStyles";
 
-const useStyles = nodeTableStyles;
+const useStyles: any = nodeTableStyles;
 
 type NodeTableProps = {
     node: VizNode;

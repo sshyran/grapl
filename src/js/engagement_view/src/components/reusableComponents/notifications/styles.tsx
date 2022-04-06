@@ -1,6 +1,6 @@
-import { makeStyles, createStyles } from "@material-ui/core/styles";
+import { makeStyles, createStyles } from "@mui/material/styles";
 
-export const notificationsStyles = makeStyles((theme) =>
+export const notificationsStyles = makeStyles((theme: any) =>
     createStyles({
         root: {
             maxWidth: 345,

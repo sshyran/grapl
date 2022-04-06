@@ -1,6 +1,4 @@
 import React from "react";
-import { useTheme } from "@mui/material/styles";
-
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
@@ -202,7 +200,6 @@ export const GeneratorsListTable = () => {
 };
 
 const Generators = () => {
-    const theme = useTheme();
     const classes = useStyles();
 
     return (

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
-import Button from "@material-ui/core/Button";
-import KeyboardArrowDownOutlinedIcon from "@material-ui/icons/KeyboardArrowDownOutlined";
-import KeyboardArrowUpOutlinedIcon from "@material-ui/icons/KeyboardArrowUpOutlined";
+import Button from "@mui/material/Button";
+import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
+import KeyboardArrowUpOutlinedIcon from "@mui/icons-material/KeyboardArrowUpOutlined";
 import { ToggleNodeTableProps } from "types/LensAndNodeTableTypes";
 
 import { NodeDetails } from "../LensAndNodeTableContainer";

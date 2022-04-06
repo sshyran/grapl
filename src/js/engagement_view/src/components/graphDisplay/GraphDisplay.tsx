@@ -53,11 +53,12 @@ const GraphDisplay = ({ lensName, setCurNode }: GraphDisplayProps) => {
 
     useEffect(() => {
         // Set the initial state immediately
-        updateGraphAndSetState();
+        // updateGraphAndSetState().then(() => {console.debug("updated graph")});
 
         // refresh every 10 seconds
         const interval = setInterval(updateGraphAndSetState, 10000);
         return () => clearInterval(interval);
+    // }, [lensName]);
     }, [lensName, state, setState, updateGraphAndSetState]);
 
     const data = useMemo(() => {

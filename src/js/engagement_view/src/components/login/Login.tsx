@@ -5,14 +5,14 @@ import { loginService } from "services/login/loginService";
 
 import { LoginProps } from "types/CustomTypes";
 
-import Icon from "@material-ui/core/Icon";
+import Icon from "@mui/material/Icon";
 import Img from "../../assets/grapl_logo.svg";
 
 import { loginStyles } from "./loginStyles";
 import "./LogIn.css";
 
 export const LogIn = (_: LoginProps) => {
-    const useStyles = loginStyles;
+    const useStyles: any = loginStyles;
 
     const classes = useStyles();
 

@@ -1,17 +1,17 @@
 import React from "react";
 
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableContainer from "@material-ui/core/TableContainer";
-import TablePagination from "@material-ui/core/TablePagination";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import TableCell from "@material-ui/core/TableCell";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableContainer from "@mui/material/TableContainer";
+import TablePagination from "@mui/material/TablePagination";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import TableCell from "@mui/material/TableCell";
 
-import { ClassNameMap } from "@material-ui/styles/withStyles";
 import { SelectLens } from "./selectLens";
 import { Lens } from "types/CustomTypes";
 import { PaginationState } from "types/CustomTypes";
+import {ClassNameMap} from "@mui/material";
 
 export const lensTable = (
     state: PaginationState,
@@ -38,7 +38,7 @@ export const lensTable = (
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onPageChange={handleChangePage}
-                onChangeRowsPerPage={handleChangeRowsPerPage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
             />
             <Table
                 className={classes.table}

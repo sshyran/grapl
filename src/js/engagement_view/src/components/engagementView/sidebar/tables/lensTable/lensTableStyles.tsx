@@ -1,6 +1,6 @@
-import { makeStyles, createStyles } from "@material-ui/core/styles";
+import { makeStyles, createStyles } from "@mui/material/styles";
 
-export const useStyles = makeStyles((theme) =>
+export const useStyles: any = makeStyles((theme: any) =>
     createStyles({
         root: {
             fontSize: "1rem",

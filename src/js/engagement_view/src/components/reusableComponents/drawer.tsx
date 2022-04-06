@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import { styled, useTheme } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 
 import Drawer from "@mui/material/Drawer";
 
 import List from "@mui/material/List";
-import Icon from "@material-ui/core/Icon";
+import Icon from "@mui/material/Icon";
 
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
