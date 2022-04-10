@@ -38,7 +38,7 @@ export const lensTable = (
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onPageChange={handleChangePage}
-                onChangeRowsPerPage={handleChangeRowsPerPage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
             />
             <Table
                 className={classes.table}

@@ -5,24 +5,24 @@ import React, {
     useCallback,
     useRef,
 } from "react";
-import { ForceGraph2D } from "react-force-graph";
-import { nodeFillColor, riskOutline } from "./graphVizualization/nodeColoring";
+import {ForceGraph2D} from "react-force-graph";
+import {nodeFillColor, riskOutline} from "./graphVizualization/nodeColoring";
 import {
     calcLinkParticleWidth,
     calcLinkColor,
     calcLinkDirectionalArrowRelPos,
 } from "./graphVizualization/linkCalcs";
-import { nodeSize } from "./graphVizualization/nodeCalcs";
-import { getLinkLabel } from "./graphLayout/labels";
-import { updateGraph } from "./graphUpdates/updateGraph";
-import { Link, VizNode, VizGraph } from "../../types/CustomTypes";
+import {nodeSize} from "./graphVizualization/nodeCalcs";
+import {getLinkLabel} from "./graphLayout/labels";
+import {updateGraph} from "./graphUpdates/updateGraph";
+import {Link, VizNode, VizGraph} from "../../types/CustomTypes";
 import {
     GraphState,
     GraphDisplayState,
     GraphDisplayProps,
 } from "../../types/GraphDisplayTypes";
 
-import { colors } from "./graphVizualization/graphColors";
+import {colors} from "./graphVizualization/graphColors";
 
 type ClickedNodeState = VizNode | null;
 
@@ -30,7 +30,7 @@ const defaultGraphDisplayState = (
     lensName: string | null
 ): GraphDisplayState => {
     return {
-        graphData: { nodes: [], links: [], index: {} },
+        graphData: {nodes: [], links: [], index: {}},
         curLensName: lensName,
     };
 };
@@ -39,36 +39,39 @@ const defaultClickedState = (): ClickedNodeState => {
     return null;
 };
 
-const GraphDisplay = ({ lensName, setCurNode }: GraphDisplayProps) => {
+async function updateGraphAndSetState(lensName: any, state: any, setState: any) {
+    if (lensName) {
+        await updateGraph(lensName, state as GraphState, setState); // state is safe cast, check that lens name is not null
+    }
+}
+
+const GraphDisplay = ({lensName, setCurNode}: GraphDisplayProps) => {
     const fgRef: any = useRef(); // fix graph to canvas
     const [state, setState] = useState(defaultGraphDisplayState(lensName));
 
-    async function updateGraphAndSetState() {
-        if (lensName) {
-            await updateGraph(lensName, state as GraphState, setState); // state is safe cast, check that lens name is not null
-        }
-    }
-
     // TODO is there a way to updateGraphAndSetState immediately on click?
+    //
+    // useEffect(() => {
+    //     // Set the initial state immediately
+    //     // refresh every 10 seconds
+    //     // const interval = setInterval(() => {
+    //     //     updateGraphAndSetState(lensName, state, setState);
+    //     // }, 10000);
+    //     // return () => clearInterval(interval);
+    // }, [lensName]);
 
-    useEffect(() => {
-        // Set the initial state immediately
-        updateGraphAndSetState();
+    useMemo(() => {
+        updateGraphAndSetState(lensName, state, setState).then(r => console.log("r"))
+    }, [lensName]);
 
-        // refresh every 10 seconds
-        const interval = setInterval(updateGraphAndSetState, 10000);
-        return () => clearInterval(interval);
-    }, [lensName, state, setState, updateGraphAndSetState]);
-
-    const data = useMemo(() => {
-        const graphData = state.graphData;
-        return graphData;
-    }, [state]);
+    const data = state.graphData;
 
     const [clickedNode, setClickedNode] = useState(defaultClickedState());
     const [highlightNodes, setHighlightNodes] = useState(new Set());
     const [highlightLinks, setHighlightLinks] = useState(new Set());
     const [hoverNode, setHoverNode] = useState(null);
+    const [stopEngine, setStopEngine] = useState(false);
+
 
     const updateHighlight = useCallback(() => {
         setHighlightNodes(highlightNodes);
@@ -127,55 +130,56 @@ const GraphDisplay = ({ lensName, setCurNode }: GraphDisplayProps) => {
             node.fx = node.x;
             node.fy = node.y;
             ctx.save();
-
+            //
             const NODE_R = nodeSize(node, data);
-
-            // Node Border Styling
-            ctx.beginPath();
-            ctx.arc(node.x, node.y, NODE_R * 1.4, 0, 2 * Math.PI, false);
-            ctx.fillStyle =
-                node === hoverNode
-                    ? colors.hoverNodeFill
-                    : riskOutline(node.risk_score);
-            ctx.fill();
-            ctx.save();
-
-            // Node Fill Styling
-            ctx.beginPath();
-            ctx.arc(node.x, node.y, NODE_R * 1.2, 0, 2 * Math.PI, false);
-            ctx.fillStyle =
-                node === clickedNode
-                    ? colors.clickedNode
-                    : nodeFillColor(node.dgraph_type[0]);
-            ctx.fill();
-            ctx.save();
-
-            // Node Label Styling
-            const label = node.nodeLabel;
-
-            const fontSize = Math.min(
-                98,
-                NODE_R / ctx.measureText(label).width
-            );
-            ctx.font = `${fontSize + 5}px Roboto`;
-
-            const textWidth = ctx.measureText(label).width;
-            const labelBkgdDimensions = [textWidth, fontSize].map(
-                (n) => n + fontSize * 0.2
-            );
-
-            ctx.fillStyle = colors.nodeLabelFill;
-            ctx.fillRect(
-                node.x - labelBkgdDimensions[0] / 2, // x coordinate
-                node.y - labelBkgdDimensions[1] - 2.75, // y coordinate
-                labelBkgdDimensions[0] + 1.25, // rectangle width
-                labelBkgdDimensions[1] + 5.5 // rectangle height
-            );
-            ctx.textAlign = "center";
-            ctx.textBaseline = "middle";
-            ctx.fillStyle = colors.nodeLabelTxt;
-            ctx.fillText(label, node.x, node.y);
-            ctx.save();
+            //
+            //
+            // // Node Border Styling
+            // ctx.beginPath();
+            // ctx.arc(node.x, node.y, NODE_R * 1.4, 0, 2 * Math.PI, false);
+            // ctx.fillStyle =
+            //     node === hoverNode
+            //         ? colors.hoverNodeFill
+            //         : riskOutline(node.risk_score);
+            // ctx.fill();
+            // // ctx.save();
+            //
+            // // Node Fill Styling
+            // ctx.beginPath();
+            // ctx.arc(node.x, node.y, NODE_R * 1.2, 0, 2 * Math.PI, false);
+            // ctx.fillStyle =
+            //     node === clickedNode
+            //         ? colors.clickedNode
+            //         : nodeFillColor(node.dgraph_type[0]);
+            // ctx.fill();
+            // // ctx.save();
+            //
+            // // Node Label Styling
+            // const label = node.nodeLabel;
+            //
+            // const fontSize = Math.min(
+            //     98,
+            //     NODE_R / ctx.measureText(label).width
+            // );
+            // ctx.font = `${fontSize + 5}px Roboto`;
+            //
+            // const textWidth = ctx.measureText(label).width;
+            // const labelBkgdDimensions = [textWidth, fontSize].map(
+            //     (n) => n + fontSize * 0.2
+            // );
+            //
+            // ctx.fillStyle = colors.nodeLabelFill;
+            // ctx.fillRect(
+            //     node.x - labelBkgdDimensions[0] / 2, // x coordinate
+            //     node.y - labelBkgdDimensions[1] - 2.75, // y coordinate
+            //     labelBkgdDimensions[0] + 1.25, // rectangle width
+            //     labelBkgdDimensions[1] + 5.5 // rectangle height
+            // );
+            // ctx.textAlign = "center";
+            // ctx.textBaseline = "middle";
+            // ctx.fillStyle = colors.nodeLabelTxt;
+            // ctx.fillText(label, node.x, node.y);
+            // ctx.save();
         },
         [data, clickedNode, hoverNode]
     );
@@ -197,7 +201,7 @@ const GraphDisplay = ({ lensName, setCurNode }: GraphDisplayProps) => {
             y: start.y + (end.y - start.y) / 2,
         };
 
-        const relLink = { x: end.x - start.x, y: end.y - start.y };
+        const relLink = {x: end.x - start.x, y: end.y - start.y};
         const maxTextLength =
             Math.sqrt(Math.pow(relLink.x, 2) + Math.pow(relLink.y, 2)) -
             LABEL_NODE_MARGIN * 8;
@@ -233,7 +237,13 @@ const GraphDisplay = ({ lensName, setCurNode }: GraphDisplayProps) => {
             graphData={data}
             ref={fgRef} // fix graph to canvas
             nodeLabel={"nodeType"} // tooltip on hover, actual label is in nodeCanvasObject
-            nodeCanvasObject={nodeStyling}
+            onEngineStop={() => {
+                if (!stopEngine) {
+                    fgRef.current.zoomToFit(1000, 50);
+                    setStopEngine(true);
+                }
+            }}
+            // nodeCanvasObject={nodeStyling}
             nodeCanvasObjectMode={() => "after"}
             onNodeHover={nodeHover}
             onNodeClick={nodeClick}
@@ -252,7 +262,7 @@ const GraphDisplay = ({ lensName, setCurNode }: GraphDisplayProps) => {
                 const _link = link as any;
                 return calcLinkDirectionalArrowRelPos(_link, data);
             }}
-            linkDirectionalParticleSpeed={0.005}
+            linkDirectionalParticleSpeed={0.003}
             linkDirectionalParticleColor={(link) => colors.linkDirParticle}
             linkDirectionalParticles={1}
             linkDirectionalParticleWidth={(link) =>

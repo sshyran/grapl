@@ -40,6 +40,10 @@ export const updateGraph = async (
                     });
                 }
             }
+            
+            console.log("updatedGraph", updatedGraph)
+            console.log("mergedUpdatedGraph", mergeUpdatedGraph)
+
         })
         .catch((e) => console.error("Failed to retrieveGraph ", e));
 };
