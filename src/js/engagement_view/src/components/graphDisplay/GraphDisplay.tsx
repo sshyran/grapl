@@ -88,6 +88,9 @@ const GraphDisplay = ({lensName, setCurNode}: GraphDisplayProps) => {
             delete node.links;
             delete node.neighbors;
 
+            fgRef.current.centerAt(node.x, node.y, 1000);
+            fgRef.current.zoom(6, 1000);
+
             setCurNode(node);
             setClickedNode(node || null);
 
@@ -127,11 +130,11 @@ const GraphDisplay = ({lensName, setCurNode}: GraphDisplayProps) => {
 
     const nodeStyling = useCallback(
         (node, ctx) => {
-            node.fx = node.x;
-            node.fy = node.y;
-            ctx.save();
+            // node.fx = node.x;
+            // node.fy = node.y;
+            // ctx.save();
             //
-            const NODE_R = nodeSize(node, data);
+            // const NODE_R = nodeSize(node, data);
             //
             //
             // // Node Border Styling
@@ -234,16 +237,19 @@ const GraphDisplay = ({lensName, setCurNode}: GraphDisplayProps) => {
 
     return (
         <ForceGraph2D
-            graphData={data}
             ref={fgRef} // fix graph to canvas
+            graphData={data}
             nodeLabel={"nodeType"} // tooltip on hover, actual label is in nodeCanvasObject
+            backgroundColor={"#18191d"}
+            height={700}
+            width={1000}
             onEngineStop={() => {
                 if (!stopEngine) {
                     fgRef.current.zoomToFit(1000, 50);
                     setStopEngine(true);
                 }
             }}
-            // nodeCanvasObject={nodeStyling}
+            nodeCanvasObject={nodeStyling}
             nodeCanvasObjectMode={() => "after"}
             onNodeHover={nodeHover}
             onNodeClick={nodeClick}
@@ -254,6 +260,7 @@ const GraphDisplay = ({lensName, setCurNode}: GraphDisplayProps) => {
             linkColor={(link) =>
                 highlightLinks.has(link)
                     ? colors.highlightLink
+                    // : "#555"
                     : calcLinkColor(link as Link, data as VizGraph)
             }
             linkWidth={(link) => (highlightLinks.has(link) ? 5 : 4)}
@@ -282,6 +289,7 @@ const GraphDisplay = ({lensName, setCurNode}: GraphDisplayProps) => {
                     highlightNodes.add(link.target);
                 }
             }}
+            maxZoom={10}
             warmupTicks={100}
             cooldownTicks={100}
         />
