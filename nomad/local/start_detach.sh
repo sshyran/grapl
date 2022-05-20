@@ -84,9 +84,9 @@ start_nomad_detach() {
 
     # Ensure Consul agent is up and running
     (
-        readonly wait_secs=15
+        readonly attempts=15
         # shellcheck disable=SC2016
-        timeout --foreground "${wait_secs}" bash -c -- "$(
+        timeout --foreground "${attempts}" bash -c -- "$(
             cat << EOF
                 # General rule: Variable defined in this EOF? Use \$
                 set -euo pipefail
@@ -97,7 +97,7 @@ start_nomad_detach() {
                         exit 42
                     fi
 
-                    echo "Waiting for consul-agent [\${wait_attempt}/${wait_secs}]"
+                    echo "Waiting for consul-agent [\${wait_attempt}/${attempts}]"
                     sleep 1
                     ((wait_attempt=wait_attempt+1))
                 done
@@ -114,9 +114,9 @@ EOF
 
     # Ensure Nomad agent is ready
     (
-        readonly wait_secs=30
+        readonly attempts=30
         # shellcheck disable=SC2016
-        timeout --foreground "${wait_secs}" bash -c -- "$(
+        timeout --foreground "${attempts}" bash -c -- "$(
             cat << EOF
                 # General rule: Variable defined in this EOF? Use \$
                 set -euo pipefail
@@ -127,7 +127,7 @@ EOF
                         exit 42
                     fi
 
-                    echo "Waiting for nomad-agent [\${wait_attempt}/${wait_secs}]"
+                    echo "Waiting for nomad-agent [\${wait_attempt}/${attempts}]"
                     sleep 1
                     ((wait_attempt=wait_attempt+1))
                 done
