@@ -208,7 +208,6 @@ group "javascript-services" {
 group "local-only-services" {
   # NOTE: Please keep this list sorted in alphabetical order
   targets = [
-    "localstack",
     "postgres",
     "pulumi",
     "scylladb"
@@ -505,15 +504,6 @@ target "pulumi" {
   dockerfile = "Dockerfile.pulumi"
   tags = [
     local_only_tag("local-pulumi")
-  ]
-  labels = oci_labels
-}
-
-target "localstack" {
-  context    = "localstack"
-  dockerfile = "Dockerfile"
-  tags = [
-    local_only_tag("localstack-grapl-fork")
   ]
   labels = oci_labels
 }
